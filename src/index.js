@@ -103,6 +103,26 @@ const run = async () => {
         }
     });
 
+    app.get('/m3ugen/api/m3u/:name.m3u', async (req, res) => {
+        const m3u_id = req.params.name;
+        const target = config.m3u.filter(e => e.trim() === m3u_id);
+        if(target.length === 0) {
+            res.json({status : 404, message : 'not found m3u'});
+            return;
+        }
+
+        const m3u_data = await fs.readFile(path.join(config.webroot, m3u_id+'.m3u'), 'utf-8');
+
+        return res
+        .status(200)
+        .set({
+            'Content-Type': 'audio/x-mpegurl; charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
+            'Cache-Control': 'no-store'
+        }).send(m3u_data);
+
+    });
+
     app.get('/m3ugen/api/m3u/:id', async (req, res) => {
         const m3u_id = req.params.id;
 

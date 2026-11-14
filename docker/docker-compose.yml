@@ -3,7 +3,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    container_name: express-app
+    container_name: m3ugen
     ports:
       - "3000:3000"
     volumes:

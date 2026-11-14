@@ -111,13 +111,13 @@ $(async () =>  {
             const text = $(element).attr("data-json");
             const json = JSON.parse(text);
 
-            const text1 = '#EXTINF:' + (json.duration) + ' tvg-logo="' +(json.image)+ '" group-title="' +(json.key)+ '", ' + (json.title);
+            const text1 = '#EXTINF:' + (json.duration) + ' tvg-logo="' +(json.image)+ '" group-title="' +(json.key)+ '",' + (json.title);
             const text2 = json.url;
             output.push(text1);
             output.push(text2);
         });
 
-        const m3u = output.join('\r\n');
+        const m3u = output.join('\n');
 
         const response = await (await fetch("/m3ugen/api/m3u/"+target, {
             method: 'PUT',
